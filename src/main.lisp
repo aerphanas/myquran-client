@@ -17,10 +17,20 @@
 	  (sixth times))))
 
 (defun cari-kota (kota)
-  "mencari kota yang diberikan oleh api my quran"
+  "mencari dengan nama kota untuk mengambil id"
   (let ((response
 	  (json:decode-json-from-string
 	   (dex:get
-	    (format nil "https://api.myquran.com/v1/sholat/kota/cari/~a" kota)))))
+	    (format nil
+		    "https://api.myquran.com/v1/sholat/kota/cari/~a"
+		    kota)))))
 	(cdadr response)))
 
+;; /{idkota}/{tahun}/{bulan}/{tanggal}
+(defun jadwal-hariini (id)
+  "menampilkan jadwal hari ini dengan id"
+  (let ((response
+	  (json:decode-json-from-string
+	   (dex:get (format nil "https://api.myquran.com/v1/sholat/jadwal/~d/~d/~d/~d"
+			    id (caddr *today*) (cadr *today*) (car *today*))))))
+    (cadddr (cddadr response))))
