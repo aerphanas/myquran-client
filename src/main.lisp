@@ -42,7 +42,7 @@
   (let ((response
 	  (json:decode-json-from-string
 	   (dex:get (format nil "https://api.myquran.com/v1/sholat/jadwal/~d/~d/~d/"
-			    id (caddr *today*) (cadr *today*) (car *today*))))))
+			    id (caddr *today*) (cadr *today*))))))
     (cdr (cadddr (cddadr response)))))
 
 ;; /tafsir/quran/kemenag/id/{id}
