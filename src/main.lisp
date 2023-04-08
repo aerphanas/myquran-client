@@ -16,6 +16,7 @@
 	  (fifth times)
 	  (sixth times))))
 
+;; /sholat/kota/cari/{keyword}
 (defun cari-kota (kota)
   "mencari dengan nama kota untuk mengambil id"
   (let ((response
@@ -26,7 +27,7 @@
 		    kota)))))
 	(cdadr response)))
 
-;; /{idkota}/{tahun}/{bulan}/{tanggal}
+;; /sholat/jadwal/{idkota}/{tahun}/{bulan}/{tanggal}
 (defun jadwal-hariini (id)
   "menampilkan jadwal hari ini dengan id"
   (let ((response
@@ -34,3 +35,21 @@
 	   (dex:get (format nil "https://api.myquran.com/v1/sholat/jadwal/~d/~d/~d/~d"
 			    id (caddr *today*) (cadr *today*) (car *today*))))))
     (cadddr (cddadr response))))
+
+;; /v1/sholat/jadwal/{idkota}/{tahun}/{bulan}
+(defun jadwal-bulanini (id)
+  "menampilkan jadwal bulan ini dengan id"
+  (let ((response
+	  (json:decode-json-from-string
+	   (dex:get (format nil "https://api.myquran.com/v1/sholat/jadwal/~d/~d/~d/"
+			    id (caddr *today*) (cadr *today*) (car *today*))))))
+    (cdr (cadddr (cddadr response)))))
+
+;; /tafsir/quran/kemenag/id/{id}
+(defun tafsir (id)
+  "menampilkan tafsir yang berasal dari kemenag"
+  (let ((response
+	  (json:decode-json-from-string
+	   (dex:get (format nil "https://api.myquran.com/v1/tafsir/quran/kemenag/id/~d"
+			    id)))))
+    (cdadr response))
