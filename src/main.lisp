@@ -1,11 +1,15 @@
 (defpackage #:myquran-client
   (:use :cl))
 
-;; use C ~  for slime
-(in-package #:myquran-client)
+(ql:quickload :cl-json)
+(ql:quickload :dexador)
 
-(ql:quickload :cl-json) ;; json parser
-(ql:quickload :dexador) ;; https client
+;; compile time type check
+(declaim (type list *today*))
+(declaim (ftype (function (string) list) cari-kota))
+(declaim (ftype (function (number) list) jadwal-hariini))
+(declaim (ftype (function (number) list) jadwal-bulanini))
+(declaim (ftype (function (number) list) tafsir))
 
 ;; (list day month year)
 (defvar *today*
@@ -52,4 +56,6 @@
 	  (json:decode-json-from-string
 	   (dex:get (format nil "https://api.myquran.com/v1/tafsir/quran/kemenag/id/~d"
 			    id)))))
-    (cdadr response))
+    (cdadr response)))
+
+(in-package #:myquran-client)
