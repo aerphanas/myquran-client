@@ -7,10 +7,8 @@
 
 (in-package #:myquran-client)
 
-;; compile time type check
-
-(declaim (type list *today*))
 ;; (list day month year)
+(declaim (type list *today*))
 (defvar *today*
   (let ((times
 	  (multiple-value-list
@@ -19,7 +17,6 @@
 	  (fifth times)
 	  (sixth times))))
 
-;; /sholat/kota/cari/{keyword}
 (declaim (ftype (function (string) list) cari-kota))
 (defun cari-kota (kota)
   "mencari dengan nama kota untuk mengambil id"
@@ -31,7 +28,6 @@
 		    kota)))))
 	(cdadr response)))
 
-;; /sholat/jadwal/{idkota}/{tahun}/{bulan}/{tanggal}
 (declaim (ftype (function (number) list) jadwal-hariini))
 (defun jadwal-hariini (id)
   "menampilkan jadwal hari ini dengan id"
@@ -41,7 +37,6 @@
 			    id (caddr *today*) (cadr *today*) (car *today*))))))
     (cadddr (cddadr response))))
 
-;; /v1/sholat/jadwal/{idkota}/{tahun}/{bulan}
 (declaim (ftype (function (number) list) jadwal-bulanini))
 (defun jadwal-bulanini (id)
   "menampilkan jadwal bulan ini dengan id"
@@ -51,7 +46,6 @@
 			    id (caddr *today*) (cadr *today*))))))
     (cdr (cadddr (cddadr response)))))
 
-;; /tafsir/quran/kemenag/id/{id}
 (declaim (ftype (function (number) list) tafsir))
 (defun tafsir (id)
   "menampilkan tafsir yang berasal dari kemenag"
