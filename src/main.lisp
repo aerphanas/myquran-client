@@ -32,18 +32,18 @@
 (defun jadwal-hariini (id)
   "menampilkan jadwal hari ini dengan id"
   (let ((response
-	  (json:decode-json-from-string
-	   (dex:get (format nil "https://api.myquran.com/v1/sholat/jadwal/~d/~d/~d/~d"
-			    id (caddr *today*) (cadr *today*) (car *today*))))))
+          (json:decode-json-from-string
+           (dex:get (format nil "https://api.myquran.com/v1/sholat/jadwal/~d/~d/~d/~d"
+                            id (caddr *today*) (cadr *today*) (car *today*))))))
     (cadddr (cddadr response))))
 
 (declaim (ftype (function (number) list) jadwal-bulanini))
 (defun jadwal-bulanini (id)
   "menampilkan jadwal bulan ini dengan id"
   (let ((response
-	  (json:decode-json-from-string
-	   (dex:get (format nil "https://api.myquran.com/v1/sholat/jadwal/~d/~d/~d/"
-			    id (caddr *today*) (cadr *today*))))))
+          (json:decode-json-from-string
+           (dex:get (format nil "https://api.myquran.com/v1/sholat/jadwal/~d/~d/~d/"
+                            id (caddr *today*) (cadr *today*))))))
     (cdr (cadddr (cddadr response)))))
 
 (declaim (ftype (function (number) list) tafsir))
