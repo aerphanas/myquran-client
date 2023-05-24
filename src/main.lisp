@@ -1,16 +1,15 @@
 (defpackage #:myquran-client
-  (:use :cl))
+  (:use :cl)
+  (:export #:cari-kota
+	   #:jadwal-hariini
+	   #:jadwal-bulanini
+	   #:tafsir))
 
-(ql:quickload :cl-json)
-(ql:quickload :dexador)
+(in-package #:myquran-client)
 
 ;; compile time type check
-(declaim (type list *today*))
-(declaim (ftype (function (string) list) cari-kota))
-(declaim (ftype (function (number) list) jadwal-hariini))
-(declaim (ftype (function (number) list) jadwal-bulanini))
-(declaim (ftype (function (number) list) tafsir))
 
+(declaim (type list *today*))
 ;; (list day month year)
 (defvar *today*
   (let ((times
@@ -21,6 +20,7 @@
 	  (sixth times))))
 
 ;; /sholat/kota/cari/{keyword}
+(declaim (ftype (function (string) list) cari-kota))
 (defun cari-kota (kota)
   "mencari dengan nama kota untuk mengambil id"
   (let ((response
@@ -32,6 +32,7 @@
 	(cdadr response)))
 
 ;; /sholat/jadwal/{idkota}/{tahun}/{bulan}/{tanggal}
+(declaim (ftype (function (number) list) jadwal-hariini))
 (defun jadwal-hariini (id)
   "menampilkan jadwal hari ini dengan id"
   (let ((response
@@ -41,6 +42,7 @@
     (cadddr (cddadr response))))
 
 ;; /v1/sholat/jadwal/{idkota}/{tahun}/{bulan}
+(declaim (ftype (function (number) list) jadwal-bulanini))
 (defun jadwal-bulanini (id)
   "menampilkan jadwal bulan ini dengan id"
   (let ((response
@@ -50,6 +52,7 @@
     (cdr (cadddr (cddadr response)))))
 
 ;; /tafsir/quran/kemenag/id/{id}
+(declaim (ftype (function (number) list) tafsir))
 (defun tafsir (id)
   "menampilkan tafsir yang berasal dari kemenag"
   (let ((response
@@ -58,4 +61,3 @@
 			    id)))))
     (cdadr response)))
 
-(in-package #:myquran-client)
