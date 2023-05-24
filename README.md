@@ -2,12 +2,12 @@
 
 my quran client api
 
-in order to use this library you need sbcl and quicklisp installed
+in order to use this library you need sbcl and asdf installed and configured properly
 
 ## how to use
 - download/clone this repo
-- go to src folder
-- run ```sbcl --load main.lisp```
+- copy folder to `~/common-lisp`
+- load libraries with `(require "myquran-client")` or `(ql:quickload "myquran-client")`
 
 ## function
 - cari-kota: string -> list
