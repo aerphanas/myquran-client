@@ -50,8 +50,8 @@
 (defun tafsir (id)
   "menampilkan tafsir yang berasal dari kemenag"
   (let ((response
-	  (json:decode-json-from-string
-	   (dex:get (format nil "https://api.myquran.com/v1/tafsir/quran/kemenag/id/~d"
-			    id)))))
+          (json:decode-json-from-string
+           (dex:get (format nil "https://api.myquran.com/v1/tafsir/quran/kemenag/id/~d"
+                            id)))))
     (cdadr response)))
 

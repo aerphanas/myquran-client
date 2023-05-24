@@ -4,6 +4,6 @@
   :author "Muhammad Aviv Burhanudin <muhamadaviv14@gmail.com>"
   :license "GPLv3"
   :depends-on (#:cl-json
-	       #:dexador)
+               #:dexador)
   :components ((:module "src"
-	       :components ((:file "main")))))
+               :components ((:file "main")))))
